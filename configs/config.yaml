@@ -1,0 +1,49 @@
+
+mode: simulation            # 'simulation' or 'lsl'
+seconds: 60                 # run length in seconds (simulation/demo)
+
+eeg:
+  fs: 250
+  n_channels: 8
+  chunk_sec: 1.0            # window length for features
+  bands:
+    beta: [13.0, 30.0]
+    alpha: [8.0, 12.0]
+  notch_hz: 50.0            # (not implemented in demo)
+  detrend: true
+
+biomarker:
+  target_beta_uV2: 5.0      # target bandpower (arbitrary simulation units)
+  smoothing: 0.3            # EMA smoothing factor [0..1]
+
+controller:
+  kind: burst_threshold        # 'bandpower_pid' or 'ml_policy'
+  kp: 0.15                   # proportional gain (maps biomarker error -> mA delta)
+  ki: 0.0                    # integral term (optional)
+  kd: 0.0                    # derivative term (optional)
+  max_step_mA: 0.2           # per-decision change limit
+
+stimulator:
+  initial_mA: 0.8
+  polarity: anodal           # 'anodal' or 'cathodal' (placeholder; no medical meaning)
+  montage: "M1-contralateral SO"  # free text, not used by code
+
+safety:
+  enabled: true
+  max_mA: 2.0
+  min_mA: 0.0
+  ramp_rate_mA_per_min: 0.5  # absolute slope limit
+  min_seconds_between_changes: 30
+  max_session_minutes: 20
+  require_human_confirm: true
+  emergency_stop_key: "q"
+
+logging:
+  level: INFO
+
+
+burst_detector:
+  ema_alpha: 0.05
+  z_thresh: 2.0
+  hysteresis: 0.5
+  min_duration_sec: 2.0
