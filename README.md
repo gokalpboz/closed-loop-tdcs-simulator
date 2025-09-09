@@ -55,5 +55,3 @@ Minimal smoke tests live in `tests/`. Expand with real CI once you integrate har
 ## License
 MIT (see `LICENSE`).
 
-## Citation/context
-This scaffold was authored to support a PhD project on **Tailored Neuromodulation for Optimizing Motor‑Cognitive Rehabilitation in Parkinson’s Disease** and its aim to use AI for real‑time adaptive stimulation. See the project brief for details.
